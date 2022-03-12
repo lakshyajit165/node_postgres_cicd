@@ -33,7 +33,7 @@ jobs:
               run: npm install
 
             - name: API testing
-              run: npm test
+              run: npm run test
               env:
                   DB_USER: ${{ secrets.POSTGRES_USER }}
                   DB_HOST: ${{ secrets.POSTGRES_HOST }}
