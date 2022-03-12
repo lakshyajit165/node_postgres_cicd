@@ -3,7 +3,7 @@ on:
     push:
         branches: [dev, stage]
     pull_request:
-        branches: [main]
+        branches: [master]
 
 jobs:
     api-test:
