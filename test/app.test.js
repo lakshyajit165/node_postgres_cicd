@@ -18,6 +18,67 @@ describe("---------------------- Testing Task APIs -------------------------", (
 	//        done();
 	//     });
 	// });
+
+	describe("/POST task", () => {
+		it("it SHOULD NOT POST a task without title field", (done) => {
+			let taskPayload = {
+				description: "J.R.R. Tolkien",
+				created_by: "test@test.com",
+			};
+			chai.request(app)
+				.post("/create_task")
+				.send(taskPayload)
+				.end((err, res) => {
+					res.should.have.status(400);
+					res.body.should.be.a("object");
+					res.body.should.have.property("errors");
+					res.body.should.have.property("errorMessage");
+					res.body.errors.should.be.a("array");
+					res.body.errors.should.contain("title is required");
+					done();
+				});
+		});
+
+		it("it SHOULD NOT POST a task with multiple missing fields", (done) => {
+			let taskPayload = {};
+			chai.request(app)
+				.post("/create_task")
+				.send(taskPayload)
+				.end((err, res) => {
+					res.should.have.status(400);
+					res.body.should.be.a("object");
+					res.body.should.have.property("errors");
+					res.body.should.have.property("errorMessage");
+					res.body.errors.should.be.a("array");
+					res.body.errors.should.contain("title is required");
+					res.body.errors.should.contain("description is required");
+					done();
+				});
+		});
+
+		// create a task
+		it("it SHOULD POST a task", (done) => {
+			// prettier-ignore
+			let taskPayload = {
+				title: "Test task",
+				description: "J.R.R. Tolkien",
+				created_by: "test@test.com"
+			};
+			chai.request(app)
+				.post("/create_task")
+				.send(taskPayload)
+				.end((err, res) => {
+					res.should.have.status(201);
+					res.body.should.be.a("object");
+					res.body.should.have.property("message");
+					res.body.message.should.equal("Task created!");
+					done();
+				});
+		});
+
+		// delete the task
+		after(async () => {});
+	});
 	/*
 	 * Test the /GET route
 	 */
@@ -99,67 +160,6 @@ describe("---------------------- Testing Task APIs -------------------------", (
 				console.error(err);
 			}
 		});
-	});
-
-	describe("/POST task", () => {
-		it("it SHOULD NOT POST a task without title field", (done) => {
-			let taskPayload = {
-				description: "J.R.R. Tolkien",
-				created_by: "test@test.com",
-			};
-			chai.request(app)
-				.post("/create_task")
-				.send(taskPayload)
-				.end((err, res) => {
-					res.should.have.status(400);
-					res.body.should.be.a("object");
-					res.body.should.have.property("errors");
-					res.body.should.have.property("errorMessage");
-					res.body.errors.should.be.a("array");
-					res.body.errors.should.contain("title is required");
-					done();
-				});
-		});
-
-		it("it SHOULD NOT POST a task with multiple missing fields", (done) => {
-			let taskPayload = {};
-			chai.request(app)
-				.post("/create_task")
-				.send(taskPayload)
-				.end((err, res) => {
-					res.should.have.status(400);
-					res.body.should.be.a("object");
-					res.body.should.have.property("errors");
-					res.body.should.have.property("errorMessage");
-					res.body.errors.should.be.a("array");
-					res.body.errors.should.contain("title is required");
-					res.body.errors.should.contain("description is required");
-					done();
-				});
-		});
-
-		// create a task
-		it("it SHOULD POST a task", (done) => {
-			// prettier-ignore
-			let taskPayload = {
-				title: "Test task",
-				description: "J.R.R. Tolkien",
-				created_by: "test@test.com"
-			};
-			chai.request(app)
-				.post("/create_task")
-				.send(taskPayload)
-				.end((err, res) => {
-					res.should.have.status(201);
-					res.body.should.be.a("object");
-					res.body.should.have.property("message");
-					res.body.message.should.equal("Task created!");
-					done();
-				});
-		});
-
-		// delete the task
-		after(async () => {});
 	});
 
 	describe("/PUT task", () => {
