@@ -13,7 +13,7 @@ let should = chai.should();
 chai.use(chaiHttp);
 //Our parent block
 describe("---------------------- Testing Task APIs -------------------------", () => {
-	// beforeEach(async (done) => { //Before each test we empty the database
+	// beforeEach(async (done) => { //Before each test we empty the database - required in case of pre-run clean-ups
 	//     Book.remove({}, (err) => {
 	//        done();
 	//     });
