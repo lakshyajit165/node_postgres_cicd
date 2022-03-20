@@ -13,11 +13,20 @@ let should = chai.should();
 chai.use(chaiHttp);
 //Our parent block
 describe("---------------------- Testing Task APIs -------------------------", () => {
-	// beforeEach(async (done) => { //Before each test we empty the database - required in case of pre-run clean-ups
-	//     Book.remove({}, (err) => {
-	//        done();
-	//     });
-	// });
+	before(async () => {
+		console.log("Running the before script...");
+		await sequelizeInstance.query(
+			`CREATE TABLE IF NOT EXISTS TASKS (
+				ID SERIAL PRIMARY KEY,
+				TITLE STRING,
+				DESCRIPTION STRING,
+				CREATED_BY STRING,
+				DATE_CREATED DATE,
+				DATE_UPDATED DATE,
+				COMPLETED BOOLEAN DEFAULT(FALSE)
+			)`
+		);
+	});
 
 	describe("/POST task", () => {
 		it("it SHOULD NOT POST a task without title field", (done) => {
