@@ -18,9 +18,9 @@ describe("---------------------- Testing Task APIs -------------------------", (
 		await sequelizeInstance.query(
 			`CREATE TABLE IF NOT EXISTS TASKS (
 				ID SERIAL PRIMARY KEY,
-				TITLE STRING,
-				DESCRIPTION STRING,
-				CREATED_BY STRING,
+				TITLE VARCHAR,
+				DESCRIPTION VARCHAR,
+				CREATED_BY VARCHAR,
 				DATE_CREATED DATE,
 				DATE_UPDATED DATE,
 				COMPLETED BOOLEAN DEFAULT(FALSE)
