@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 10000 --exit",
+    "test": "nyc --reporter=text mocha --timeout 10000 --exit",
     "start": "nodemon src/app.js"
   },
   "keywords": [],
