@@ -13,26 +13,18 @@ let should = chai.should();
 chai.use(chaiHttp);
 //Our parent block
 describe("---------------------- Testing Task APIs -------------------------", () => {
-	// before(async () => {
-	// 	console.log("Running the before script...");
-	// 	try {
-	// 		await sequelizeInstance.query(
-	// 			`CREATE TABLE IF NOT EXISTS "tasks" (
-	// 				"id"  SERIAL ,
-	// 				"title" VARCHAR(255),
-	// 				"description" VARCHAR(255),
-	// 				"created_by" VARCHAR(255),
-	// 				"date_created" TIMESTAMP WITH TIME ZONE,
-	// 				"date_updated" TIMESTAMP WITH TIME ZONE,
-	// 				"completed" BOOLEAN DEFAULT false,
-	// 				PRIMARY KEY ("id")
-	// 			)
-	// 			`
-	// 		);
-	// 	} catch (err) {
-	// 		console.error(err);
-	// 	}
-	// });
+	describe("/GET server test response", () => {
+		it("it SHOULD return the test message", (done) => {
+			chai.request(app)
+				.get("/test")
+				.end((err, res) => {
+					res.should.have.status(200);
+					res.body.should.have.property("message");
+					res.body.message.should.equal("Server is running!");
+					done();
+				});
+		});
+	});
 
 	describe("/POST task", () => {
 		it("it SHOULD NOT POST a task without title field", (done) => {
@@ -144,9 +136,6 @@ describe("---------------------- Testing Task APIs -------------------------", (
 					}
 				);
 			} catch (err) {
-				console.log(
-					"-----------------------------------------------------------------------------------"
-				);
 				console.error(err);
 			}
 		});

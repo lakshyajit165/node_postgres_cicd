@@ -6,6 +6,10 @@ const {
 	deleteTaskFromDB,
 } = require("../repository/task_repository");
 
+const testServerResponse = (req, res) => {
+	return res.status(200).send({ message: "Server is running!" });
+};
+
 const getAllTasks = async (req, res) => {
 	try {
 		const taskList = await getAllTasksFromDB();
@@ -67,6 +71,7 @@ const deleteTask = async (req, res) => {
 };
 
 module.exports = {
+	testServerResponse,
 	getAllTasks,
 	getTaskById,
 	createTask,
