@@ -13,11 +13,18 @@ let should = chai.should();
 chai.use(chaiHttp);
 //Our parent block
 describe("---------------------- Testing Task APIs -------------------------", () => {
-	// beforeEach(async (done) => { //Before each test we empty the database - required in case of pre-run clean-ups
-	//     Book.remove({}, (err) => {
-	//        done();
-	//     });
-	// });
+	describe("/GET server test response", () => {
+		it("it SHOULD return the test message", (done) => {
+			chai.request(app)
+				.get("/test")
+				.end((err, res) => {
+					res.should.have.status(200);
+					res.body.should.have.property("message");
+					res.body.message.should.equal("Server is running!");
+					done();
+				});
+		});
+	});
 
 	describe("/POST task", () => {
 		it("it SHOULD NOT POST a task without title field", (done) => {
@@ -115,9 +122,10 @@ describe("---------------------- Testing Task APIs -------------------------", (
 			const currentDate = new Date().toISOString();
 			try {
 				taskCreated = await sequelizeInstance.query(
-					`INSERT INTO TASKS(TITLE, DESCRIPTION, CREATED_BY, DATE_CREATED, DATE_UPDATED) VALUES ($1, $2, $3, $4, $5) RETURNING *;`,
+					`INSERT INTO TASKS(ID, TITLE, DESCRIPTION, CREATED_BY, DATE_CREATED, DATE_UPDATED) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`,
 					{
 						bind: [
+							Math.floor(1000 + Math.random() * 9000),
 							"test task title",
 							"task.description",
 							"test@test.com",
