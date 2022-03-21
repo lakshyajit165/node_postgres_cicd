@@ -13,20 +13,26 @@ let should = chai.should();
 chai.use(chaiHttp);
 //Our parent block
 describe("---------------------- Testing Task APIs -------------------------", () => {
-	before(async () => {
-		console.log("Running the before script...");
-		await sequelizeInstance.query(
-			`CREATE TABLE IF NOT EXISTS TASKS (
-				ID SERIAL PRIMARY KEY,
-				TITLE VARCHAR,
-				DESCRIPTION VARCHAR,
-				CREATED_BY VARCHAR,
-				DATE_CREATED DATE,
-				DATE_UPDATED DATE,
-				COMPLETED BOOLEAN DEFAULT(FALSE)
-			)`
-		);
-	});
+	// before(async () => {
+	// 	console.log("Running the before script...");
+	// 	try {
+	// 		await sequelizeInstance.query(
+	// 			`CREATE TABLE IF NOT EXISTS "tasks" (
+	// 				"id"  SERIAL ,
+	// 				"title" VARCHAR(255),
+	// 				"description" VARCHAR(255),
+	// 				"created_by" VARCHAR(255),
+	// 				"date_created" TIMESTAMP WITH TIME ZONE,
+	// 				"date_updated" TIMESTAMP WITH TIME ZONE,
+	// 				"completed" BOOLEAN DEFAULT false,
+	// 				PRIMARY KEY ("id")
+	// 			)
+	// 			`
+	// 		);
+	// 	} catch (err) {
+	// 		console.error(err);
+	// 	}
+	// });
 
 	describe("/POST task", () => {
 		it("it SHOULD NOT POST a task without title field", (done) => {
@@ -124,9 +130,10 @@ describe("---------------------- Testing Task APIs -------------------------", (
 			const currentDate = new Date().toISOString();
 			try {
 				taskCreated = await sequelizeInstance.query(
-					`INSERT INTO TASKS(TITLE, DESCRIPTION, CREATED_BY, DATE_CREATED, DATE_UPDATED) VALUES ($1, $2, $3, $4, $5) RETURNING *;`,
+					`INSERT INTO TASKS(ID, TITLE, DESCRIPTION, CREATED_BY, DATE_CREATED, DATE_UPDATED) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`,
 					{
 						bind: [
+							Math.floor(1000 + Math.random() * 9000),
 							"test task title",
 							"task.description",
 							"test@test.com",
@@ -137,6 +144,9 @@ describe("---------------------- Testing Task APIs -------------------------", (
 					}
 				);
 			} catch (err) {
+				console.log(
+					"-----------------------------------------------------------------------------------"
+				);
 				console.error(err);
 			}
 		});
