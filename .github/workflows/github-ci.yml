@@ -1,7 +1,7 @@
 name: run api testing
 on:
     push:
-        branches: [dev, stage]
+        branches: [dev, stage, master]
     pull_request:
         branches: [master]
 
