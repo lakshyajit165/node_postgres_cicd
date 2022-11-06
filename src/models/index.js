@@ -8,6 +8,7 @@ const {
 	DB_DIALECT,
 	DB_POOL_CONNECTION_LIMIT,
 	DB_POOL_IDLE_TIMEOUT,
+	DB_POOL_EVICT,
 } = require("../configuration/env_config");
 const sequelizeInstance = new Sequelize(DATABASE, DB_USER, DB_HMAC, {
 	host: DB_HOST,
@@ -16,6 +17,7 @@ const sequelizeInstance = new Sequelize(DATABASE, DB_USER, DB_HMAC, {
 	pool: {
 		max: DB_POOL_CONNECTION_LIMIT,
 		idle: DB_POOL_IDLE_TIMEOUT,
+		evict: DB_POOL_EVICT,
 	},
 	define: {
 		timestamps: false,

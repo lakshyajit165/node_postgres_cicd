@@ -10,4 +10,5 @@ module.exports = {
 	DB_DIALECT: process.env.DB_DIALECT,
 	DB_POOL_CONNECTION_LIMIT: +process.env.DB_POOL_CONNECTION_LIMIT,
 	DB_POOL_IDLE_TIMEOUT: +process.env.DB_POOL_IDLE_TIMEOUT,
+	DB_POOL_EVICT: +process.env.DB_POOL_EVICT,
 };

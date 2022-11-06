@@ -7,6 +7,7 @@ const {
 	DB_DIALECT,
 	DB_POOL_CONNECTION_LIMIT,
 	DB_POOL_IDLE_TIMEOUT,
+	DB_POOL_EVICT,
 } = require("./env_config");
 
 const dbConfig = {
@@ -18,6 +19,7 @@ const dbConfig = {
 	max: DB_POOL_CONNECTION_LIMIT,
 	dialect: DB_DIALECT,
 	idleTimeoutMillis: DB_POOL_IDLE_TIMEOUT,
+	evictTimeLimit: DB_POOL_EVICT,
 };
 
 module.exports = { dbConfig };
