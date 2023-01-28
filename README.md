@@ -1,4 +1,4 @@
-# Configuring a simple CICD pipeline with unit and integration testing using Node.js and PostgreSQL
+# Configuring a simple CICD pipeline with unit and integration testing using Node.js and PostgreSQL!!
 
 - Create a simple CRUD application with the necessary endpoints/middlewares/ORM.
 - Connext to PostgreSQL database using docker on the local machine.
