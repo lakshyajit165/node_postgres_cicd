@@ -1,4 +1,5 @@
 name: test endpoints
+
 on:
     push:
         branches: [dev, stage, master]
@@ -20,7 +21,8 @@ jobs:
                     POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
                 ports:
                     - 5432:5432
-                options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+                options: --health-cmd pg_isready --health-interval 10s --health-timeout 10s --health-retries 10
+
         steps:
             - uses: actions/checkout@v2
 
@@ -31,6 +33,15 @@ jobs:
 
             - name: Install Dependencies
               run: npm install
+
+            - name: Wait for PostgreSQL to start
+              run: sleep 10
+
+            - name: Check PostgreSQL service availability
+              run: |
+                  until pg_isready -h localhost -p 5432 -U ${{ secrets.POSTGRES_USER }}; do
+                    sleep 2
+                  done
 
             - name: API testing
               run: npm run test
