@@ -1,5 +1,5 @@
 # Configuring a simple CICD pipeline with unit and integration testing using Node.js and PostgreSQL
-> [![test endpoints](https://github.com/lakshyajit165/node_postgres_cicd/actions/workflows/github-ci.yml/badge.svg?branch=master)](https://github.com/lakshyajit165/node_postgres_cicd/actions/workflows/github-ci.yml)
+> [![test endpoints](https://github.com/lakshyajit165/node_postgres_cicd/actions/workflows/github-ci.yml/badge.svg)](https://github.com/lakshyajit165/node_postgres_cicd/actions/workflows/github-ci.yml)
 
 - Create a simple CRUD application with the necessary endpoints/middlewares/ORM.
 - Connext to PostgreSQL database using docker on the local machine.
