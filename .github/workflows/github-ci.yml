@@ -1,4 +1,4 @@
-name: run api testing
+name: test endpoints
 on:
     push:
         branches: [dev, stage, master]
