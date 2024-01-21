@@ -29,11 +29,4 @@ APP_PORT=3000
 -   There was an intermittent error saying "could not find relation 'tasks'" in some of the failing test cases.
 -   Added a script in the project root to create the table while spinning up a docker container in the local setup and modified the github action script to include a create table query so that the table is created before the tests are run as part of the github actions workflow.
 -   The script to spin a docker container on local is modified as follows:
--   ```docker run -d -p 5432:5432 \
-    --name node-postgres \
-    -e POSTGRES_PASSWORD=postgres \
-    -e POSTGRES_DB=node_postgres_cicd \
-    -e POSTGRES_USER=postgres \
-    -v /Users/elkay/Documents/workspace/node_postgres_cicd/scripts:/docker-entrypoint-initdb.d \
-    postgres
-    ```
+-   `docker run -d -p 5432:5432 --name node-postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=node_postgres_cicd -e POSTGRES_USER=postgres -v /Users/elkay/Documents/workspace/node_postgres_cicd/scripts:/docker-entrypoint-initdb.d postgres`
