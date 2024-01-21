@@ -45,6 +45,12 @@ jobs:
                     sleep 2
                   done
 
+            - name: Check if 'tasks' table exists
+              run: |
+                  until psql -h localhost -U ${{ secrets.POSTGRES_USER }} -d ${{ secrets.POSTGRES_DB }} -c '\dt' | grep -q 'tasks'; do
+                      sleep 2
+                  done
+
             - name: API testing
               run: npm run test
               env:
