@@ -21,8 +21,6 @@ jobs:
                     POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
                 ports:
                     - 5432:5432
-                volumes:
-                    - ./scripts:/docker-entrypoint-initdb.d
                 options: --health-cmd pg_isready --health-interval 10s --health-timeout 10s --health-retries 10
 
         steps:
@@ -44,6 +42,20 @@ jobs:
                   until pg_isready -h localhost -p 5432 -U ${{ secrets.POSTGRES_USER }}; do
                     sleep 2
                   done
+
+            - name: Create 'tasks' table
+              run: |
+                  PGPASSWORD=${{ secrets.POSTGRES_PASSWORD }} psql -h localhost -U ${{ secrets.POSTGRES_USER }} -d ${{ secrets.POSTGRES_DB }} -f - <<EOF
+                  CREATE TABLE IF NOT EXISTS tasks (
+                      id SERIAL PRIMARY KEY,
+                      title VARCHAR(255),
+                      description VARCHAR(255),
+                      created_by VARCHAR(255),
+                      date_created TIMESTAMP WITH TIME ZONE,
+                      date_updated TIMESTAMP WITH TIME ZONE,
+                      completed BOOLEAN DEFAULT false
+                  );
+                  EOF
 
             - name: API testing
               run: npm run test
